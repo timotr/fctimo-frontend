@@ -27,7 +27,7 @@ export default function Layout() {
       </Group>
       <Stack mt="lg">
         <Link to="/">Training</Link>
-        <Link to="/">Players</Link>
+        <Link to="/players">Players</Link>
         <Link to="/">Groups</Link>
         <Divider />
         <Link to="/">Guardians</Link>

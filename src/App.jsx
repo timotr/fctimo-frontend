@@ -4,6 +4,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Layout from './Layout';
+import PlayersList from './components/PlayersList';
 
 const router = createBrowserRouter([
   {
@@ -12,7 +13,15 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <div>Test</div>,
+        element: <div>Training</div>,
+      },
+      {
+        path: "/players",
+        element: <PlayersList />,
+      },
+      {
+        path: "/groups",
+        element: <div>Groups</div>,
       },
     ],
   },
