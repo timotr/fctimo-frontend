@@ -4,7 +4,9 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Layout from './Layout';
-import PlayersList from './components/PlayersList';
+import PlayersList from './components/views/PlayersList';
+import { SWRConfig } from 'swr';
+import PlayersEdit from './components/views/PlayersEdit';
 
 const router = createBrowserRouter([
   {
@@ -20,8 +22,12 @@ const router = createBrowserRouter([
         element: <PlayersList />,
       },
       {
-        path: "/groups",
-        element: <div>Groups</div>,
+        path: "/players/:id",
+        element: <PlayersEdit />,
+      },
+      {
+        path: "/teams",
+        element: <div>Teams</div>,
       },
     ],
   },
@@ -33,6 +39,13 @@ const theme = createTheme({
 
 export default function App() {
   return <MantineProvider theme={theme} defaultColorScheme="auto">
-    <RouterProvider router={router} />
+    <SWRConfig
+      value={{
+        refreshInterval: 10000,
+        fetcher: (resource, init) => fetch(resource, init).then(res => res.json())
+      }}
+    >
+      <RouterProvider router={router} />
+    </SWRConfig>
   </MantineProvider>;
 }
