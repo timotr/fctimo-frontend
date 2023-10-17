@@ -22,6 +22,7 @@ export default function PlayersList() {
     useEffect(() => {
         setActionBarTitle('Players');
         addActionBarButton('create', <Button
+            key="players-list-create"
             variant="filled"
             onClick={() => navigate("/players/new")}>
             Create player
@@ -43,7 +44,7 @@ export default function PlayersList() {
         </Table.Thead>
         <Table.Tbody>
             {data.map(player => (
-                <Table.Tr>
+                <Table.Tr key={player.id ?? player.name}>
                     <Table.Td>{player.name}</Table.Td>
                     <Table.Td>{player.team}</Table.Td>
                     <Table.Td>{player.guardian}</Table.Td>

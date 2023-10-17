@@ -20,8 +20,8 @@ export default function Layout() {
       <Group justify="space-between" align="center">
         <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
         <Group justify="flex-end" style={{ flex: 1 }}>
-          <Group>
-            <div>{actionBarTitle}</div>
+          <Group style={{flexGrow: 1}}>
+            <div style={{flexGrow: 1}}>{actionBarTitle}</div>
             <div>{Object.values(actionBarButtons)}</div>
           </Group>
         </Group>
