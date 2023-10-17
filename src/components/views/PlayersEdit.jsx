@@ -1,4 +1,4 @@
-import { Button, Input, Select } from "@mantine/core";
+import { Button, Select, TextInput } from "@mantine/core";
 import useGlobalState from "../hooks/useGlobalState";
 import { useForm } from "@mantine/form";
 import { useEffect } from "react";
@@ -19,7 +19,8 @@ export default function PlayersEdit({ params }) {
         ],
     });
 
-    const teamsOptions = teams.map(team => ({ value: team.id, label: team.name }));
+    
+    const teamsOptions = teams.map(team => ({ value: team.id.toString(), label: team.name }));
 
     const form = useForm({
         initialValues: {
@@ -32,24 +33,27 @@ export default function PlayersEdit({ params }) {
         },
     });
 
+    const handleSubmit = (values) => {
+        console.log("handleSubmit", values)
+    }
+
     useEffect(() => {
         setActionBarTitle(isNew ? 'Create new player' : "Edit player");
         addActionBarButton('save', <Button
+            key="players-edit-save"
             variant={form.isDirty() ? "filled" : "outline"}
-            onClick={form.submit}>
+            onClick={form.onSubmit(handleSubmit)}>
             Save
         </Button>);
         return () => {
             setActionBarTitle('');
             removeActionBarButton('save');
         }
-    }, [setActionBarTitle, addActionBarButton, removeActionBarButton, form.submit, form.isDirty(), isNew]);
+    }, [setActionBarTitle, addActionBarButton, removeActionBarButton, form, form.isDirty(), isNew]);
 
     return <div>
-        <Input {...form.getInputProps('name')} label="Full name" />
+        <TextInput {...form.getInputProps('name')} label="Full name" />
         <Select {...form.getInputProps('team')} label="Team" data={teamsOptions} />
-
-        <h3>Search for guardian</h3>
-        <Input {...form.getInputProps('guardian')} label="Guardian name" />
+        <TextInput {...form.getInputProps('guardian')} label="Search for guardian" />
     </div>
 }
